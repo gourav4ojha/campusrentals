@@ -4,7 +4,7 @@ import Living from "@/assets/images/gowheels1.jpg"
 import Link from "next/link";
 
 const getvenicals = async () => {
-  let data = await fetch("http://localhost:3000/api/gowheels");
+  let data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}gowheels`);
   data = await data.json();
   return data.result;
 }

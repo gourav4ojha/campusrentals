@@ -30,7 +30,7 @@ export default function Loginform() {
     setLoading(true); // Set loading state to true
 
     try {
-      let result = await fetch(`http://localhost:3000/api/users/login`, {
+      let result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}users/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

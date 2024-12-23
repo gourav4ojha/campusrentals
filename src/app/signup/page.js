@@ -20,7 +20,7 @@ export default function Signup() {
 
   const sendOTP = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/api/users/send-otp`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}users/send-otp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: inputUser.email }),
@@ -40,7 +40,7 @@ export default function Signup() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const result = await fetch(`http://localhost:3000/api/users/signup`, {
+      const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}users/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

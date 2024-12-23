@@ -1,17 +1,17 @@
 "use client"
-
+import Cookies from 'js-cookie'; 
 import { useState } from "react";
 
 const verifyToken = async () => {
-  const Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NjQyNTkzMzkxMzE5ZmJjNDMzYjczYSIsImVtYWlsIjoiZ291cmF2dmlzaHdha2FybWEwNDlAZ21haWwuY29tIiwicm9sZSI6InNhbGVyIiwiaWF0IjoxNzM0NzA0MzY2LCJleHAiOjE3MzQ3MTE1NjZ9.wpJT9qR7m6BGyG9ENfmAR3z5CNoZ2ou2ufUNIjWZfsY"
-  const response = await fetch('http://localhost:3000/api/users', {
+  const Token = Cookies.get('token');
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}users`, {
     method: 'GET',
     headers: {
       'Authorization': `Bearer ${Token}`  // Get token from cookies
     },
   });
   const data = await response.json();
-  console.log(data.user._id)
+  // console.log(data.user._id)
   return data.user._id
 };
 
@@ -45,7 +45,7 @@ export default function UpdateUser() {
     event.preventDefault();
     let userid = await verifyToken();
     try {
-      const result = await fetch(`http://localhost:3000/api/users/${userid}`, {
+      const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}users/${userid}`, {
         method: "PUT",  // Change to PUT since you want to update the user
         headers: {
           "Content-Type": "application/json",

@@ -7,36 +7,46 @@ import searchIcon from '../../src/assets/icons/search.png';
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 import Cookies from 'js-cookie'; // Import Cookies for handling token
 
+// Function to verify the token and fetch user data
 const verifyToken = async () => {
-  const Token = Cookies.get('token');
-  
+  const Token = Cookies.get('token');  
   if (!Token) return null;
 
-  const response = await fetch('http://localhost:3000/api/users', {
-    method: 'GET',
-    headers: {
-      'Authorization': `Bearer ${Token}` // Get token from cookies
-    },
-  });
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}users`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${Token}` // Get token from cookies
+      },
+    });
 
-  const data = await response.json();
-  return data.user ? data.user._id : null;
-};
-
-const fetchUserData = async () => {
-  const userId = await verifyToken();   
-  if (!userId) return null;
-  const response = await fetch(`http://localhost:3000/api/users/${userId}`);
-  const data = await response.json();
-  console.log('user', data)
-  return data.result;
+    const data = await response.json();
+    // console.log("user data", data);
+    return data.user;
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    return null;
+  }
 };
 
 const Header = () => {
+  // State management for header and user data
   const [header, setHeader] = useState(false);
   const [headerColor, setHeaderColor] = useState('transparent');
   const [headerText, setHeaderText] = useState('white');
   const [user, setUser] = useState(null);
+
+  // Fetch user data if token exists
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const userData = await verifyToken();
+      if (userData) {
+        setUser(userData);
+      }
+    };
+
+    fetchUserData();
+  }, []); // Empty dependency array to run the effect once on mount
 
   // Handle header color change on scroll
   useEffect(() => {
@@ -54,16 +64,6 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleColorChange); // Cleanup
   }, []);
 
-  // Fetch user data if token exists
-  useEffect(() => {
-    const fetchUser = async () => {
-      const userData = await fetchUserData();
-      if (userData) setUser(userData);
-    };
-
-    fetchUser();
-  }, []);
-
   const handleHeader = () => {
     setHeader(!header);
   };
@@ -71,7 +71,8 @@ const Header = () => {
   const handleMobileHeader = () => {
     setHeader(false);
   };
-  console.log('user', user)
+
+
   return (
     <div
       style={{ background: `${headerColor}` }}

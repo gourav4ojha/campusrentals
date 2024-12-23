@@ -3,12 +3,12 @@ import Footer from '@/components/footer'
 
 const fetchVehicleData = async (vehicleId) => {
     try {
-        const response = await fetch(`http://localhost:3000/api/gowheels/${vehicleId}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}gowheels/${vehicleId}`);
         if (!response.ok) {
             throw new Error(`Error fetching vehicle data: ${response.statusText}`);
         }
         const data = await response.json();
-        console.log(data.result);
+        // console.log(data.result);
         return data.result;
     } catch (error) {
         console.error("Error in fetchVehicleData:", error.message);
@@ -18,7 +18,7 @@ const fetchVehicleData = async (vehicleId) => {
 
 export default async function showvehicles({ params }) {
     const { showvehicle: vehicleId } = await params; // Destructure showvehicle from params
-    console.log("Vehicle ID:", vehicleId);
+    // console.log("Vehicle ID:", vehicleId);
 
     if (!vehicleId) {
         console.error("No vehicle ID provided");

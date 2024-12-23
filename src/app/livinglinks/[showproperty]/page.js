@@ -3,12 +3,12 @@ import Footer from '@/components/footer'
 
 const fetchpropertyData = async (propertyId) => {
     try {
-        const response = await fetch(`http://localhost:3000/api/livinglinks/${propertyId}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}livinglinks/${propertyId}`);
         if (!response.ok) {
             throw new Error(`Error fetching property data: ${response.statusText}`);
         }
         const data = await response.json();
-        console.log(data.result);
+        // console.log(data.result);
         return data.result;
     } catch (error) {
         console.error("Error in fetchpropertyData:", error.message);
@@ -19,7 +19,7 @@ const fetchpropertyData = async (propertyId) => {
 export default async function ShowProperty({ params }) {
 
     const { showproperty: propertyId } = await params; // Destructure showproperty from params
-    console.log("property ID:", propertyId);
+    // console.log("property ID:", propertyId);
 
     if (!propertyId) {
         console.error("No property ID provided");

@@ -1,30 +1,24 @@
 // import Updateuser from "./updateuser"
+import { cookies } from 'next/headers'
 
-const verifyToken = async () => {    
-  const Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NjQyNTkzMzkxMzE5ZmJjNDMzYjczYSIsImVtYWlsIjoiZ291cmF2dmlzaHdha2FybWEwNDlAZ21haWwuY29tIiwicm9sZSI6InNhbGVyIiwiaWF0IjoxNzM0NzAyOTMwLCJleHAiOjE3MzQ3MTAxMzB9.VYMmv7Ji4qsciRMF0fzsGYSnIlkbF3kP1ePTYX5pwyM"  
-  const response = await fetch('http://localhost:3000/api/users', {
+const verifyToken = async () => {  
+  const cookieStore = cookies();  
+  const Token = cookieStore.get('token'); 
+  // console.log ("token",Token.value)
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}users`, {
       method: 'GET',
       headers: {
-          'Authorization': `Bearer ${Token}`  // Get token from cookies
+          'Authorization': `Bearer ${Token.value}`  // Get token from cookies
       },
   });
   const data = await response.json();
-  // console.log(data.user._id)
-  return data.user._id  
+  // console.log("user id from token",data.user)
+  return data.user
 };
  
-const fetchUserData = async () => {
-      let userid = await verifyToken();
-      const response = await fetch(`http://localhost:3000/api/users/${userid}`);
-      const data = await response.json();
-      console.log(data.result)
-      return data.result
-  };
-  
- 
  export default async function profile() {
-  const user = await fetchUserData()
-  console.log(user)
+  const user= await verifyToken();
+
   return (  
     <>
     <div className="bg-teal-200">

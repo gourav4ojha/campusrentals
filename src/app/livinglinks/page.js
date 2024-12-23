@@ -4,7 +4,7 @@ import Living from "@/assets/images/livinglinks1.jpg"
 import Link from "next/link";
 
 const getpropertys = async () => {
-  let data = await fetch("http://localhost:3000/api/livinglinks");
+  let data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}livinglinks`);
   data = await data.json();
   // console.log(data)
   return data.result;

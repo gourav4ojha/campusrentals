@@ -1,17 +1,17 @@
 "use client"
-
+import Cookies from 'js-cookie'; 
 import { useState } from "react";
 
 const verifyToken = async () => {
-  const Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NjQyNTkzMzkxMzE5ZmJjNDMzYjczYSIsImVtYWlsIjoiZ291cmF2dmlzaHdha2FybWEwNDlAZ21haWwuY29tIiwicm9sZSI6InNhbGVyIiwiaWF0IjoxNzM0Njk4ODAzLCJleHAiOjE3MzQ3MDYwMDN9.6whs512O4roYpKfv3t0bCt_OmKCdosBsb0YiXpzJI2E"
-  const response = await fetch('http://localhost:3000/api/users', {
+  const Token = Cookies.get('token');
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}users`, {
     method: 'GET',
     headers: {
       'Authorization': `Bearer ${Token}`  // Get token from cookies
     },
   });
   const data = await response.json();
-  console.log(data.user._id)
+  // console.log(data.user._id)
   return data.user._id
 };
 
@@ -44,7 +44,7 @@ export default function Smartadd() {
     // let userid = "1237hdb891"
      // Setting ownerId after token verification
     try {
-      const result = await fetch(`http://localhost:3000/api/gowheels`, {
+      const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}gowheels`, {
         method: "POST",  // Change to POST since you're adding a new vehicle
         headers: {
           "Content-Type": "application/json",
