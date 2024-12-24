@@ -18,24 +18,24 @@ export default function Signup() {
     }));
   };
 
-  const sendOTP = async () => {
-    try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}users/send-otp`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: inputUser.email }),
-      });
-      const result = await response.json();
-      if (result.success) {
-        alert("OTP sent successfully!");
-      } else {
-        alert(result.error || "Failed to send OTP.");
-      }
-    } catch (error) {
-      console.error("Error sending OTP:", error);
-      alert("An error occurred while sending the OTP. Please try again.");
-    }
-  };
+  // const sendOTP = async () => {
+  //   try {
+  //     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}users/send-otp`, {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({ email: inputUser.email }),
+  //     });
+  //     const result = await response.json();
+  //     if (result.success) {
+  //       alert("OTP sent successfully!");
+  //     } else {
+  //       alert(result.error || "Failed to send OTP.");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error sending OTP:", error);
+  //     alert("An error occurred while sending the OTP. Please try again.");
+  //   }
+  // };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -124,7 +124,7 @@ export default function Signup() {
             </div>
             <button
               type="button"
-              onClick={sendOTP}
+              // onClick={sendOTP}
               className="py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white rounded-lg shadow-lg transform transition-transform duration-200 hover:-translate-y-1"
             >
               Send OTP
