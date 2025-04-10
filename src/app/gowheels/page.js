@@ -3,11 +3,27 @@ import Image from 'next/image';
 import Living from "@/assets/images/gowheels1.jpg"
 import Link from "next/link";
 
+// const getvenicals = async () => {
+//   let data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}gowheels`);
+//   data = await data.json();
+//   return data.result;
+// }
 const getvenicals = async () => {
-  let data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}gowheels`);
-  data = await data.json();
-  return data.result;
-}
+  const baseUrl =
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:3000/api/"
+      : process.env.NEXT_PUBLIC_API_URL;
+
+  try {
+    const response = await fetch(`${baseUrl}gowheels`);
+    const data = await response.json();
+    return data.result;
+  } catch (err) {
+    console.error("Fetch failed:", err);
+    return null;
+  }
+};
+
 
 export default async function GoWheels() {
   const vehicals = await getvenicals()
