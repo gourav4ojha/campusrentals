@@ -21,8 +21,8 @@ export default function PaymentComponent({ productId }) {
         description: "Product Description",
         image: "https://yourcompany.com/logo.png",
         handler: function (response) {
-          alert("Payment Successful");
-          // You can send `response.razorpay_payment_id` to your backend here
+          alert(`Payment Successful: ${response.razorpay_payment_id}`);
+          // You can also send it to the backend here
         },
         prefill: {
           name: "Customer Name",
