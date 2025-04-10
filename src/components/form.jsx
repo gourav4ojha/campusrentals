@@ -217,7 +217,7 @@
 "use client";
 
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React from 'react';
 import usernameIcon from '../assets/icons/Icon.png';
 import callIcon from '../assets/icons/callIcon.png';
 import emailIcon from '../assets/icons/email.png';
@@ -255,8 +255,10 @@ const Form = () => {
       toast.success('Form submitted successfully!');
       reset();
     } catch (error) {
+      console.error("Submission Error:", error);
       toast.error('Submission failed. Please try again.');
     }
+    
   };
 
   return (

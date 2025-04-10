@@ -26,7 +26,7 @@ const Hero = ({ address, phone, email }) => {
         <div className="relative h-screen text-center flex flex-col justify-center items-center">          
           <h1 className="font-normal text-7xl text-center mt-24 text-white capitalize">
           Campus Rentals</h1>
-            <h2> Wheels and Walls for Every Student's Need.</h2>
+          <h2> Wheels and Walls for Every Student&apos;s Need.</h2>
           
           {/* Icons and Text under Heading */}
           <div className="hidden sm:flex mt-24 justify-center items-center">

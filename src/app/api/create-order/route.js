@@ -13,7 +13,7 @@ const razorpay = new Razorpay({
   key_secret: keySecret,
 });
 
-export async function POST(request) {
+export async function POST() {
   try {
     const order = await razorpay.orders.create({
       amount: 100 * 100, // Amount in paise (₹1 = 100 paise)
