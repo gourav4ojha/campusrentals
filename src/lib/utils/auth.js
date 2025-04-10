@@ -9,6 +9,6 @@ export function verifyToken(token) {
         const decoded = jwt.verify(token, JWT_SECRET);
         return { success: true, user: decoded };
     } catch (e) {
-        return { success: false, e: "Invalid or expired token" };
+        return { success: false, error: e.message, message: "Invalid or expired token" };
     }
 }

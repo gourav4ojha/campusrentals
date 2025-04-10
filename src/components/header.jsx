@@ -63,9 +63,9 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleColorChange); // Cleanup
   }, []);
 
-  const handleHeader = () => {
-    setHeader(!header);
-  };
+  // const handleHeader = () => {
+  //   setHeader(!header);
+  // };
 
   const handleMobileHeader = () => {
     setHeader(false);

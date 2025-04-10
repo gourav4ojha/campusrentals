@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-export default function PaymentComponent ({ productId }) {
+export default function PaymentComponent({ productId }) {
   const [loading, setLoading] = useState(false);
 
   const handlePayment = async () => {
     try {
       setLoading(true);
       const { data } = await axios.post("http://localhost:5000/create-order", {
-        amount: 1000,  // Amount in INR (1000 = 10 INR)
-        productId: productId,  // Pass the product ID here
+        amount: 1000, // Amount in INR (1000 = ₹10.00)
+        productId: productId,
       });
 
       const options = {
-        key: process.env.REACT_APP_RAZORPAY_KEY_ID, // Your Razorpay key ID
-        amount: data.amount, // Amount in paise
+        key: process.env.REACT_APP_RAZORPAY_KEY_ID,
+        amount: data.amount,
         currency: data.currency,
         order_id: data.orderId,
         name: "Your Company Name",
@@ -22,7 +22,7 @@ export default function PaymentComponent ({ productId }) {
         image: "https://yourcompany.com/logo.png",
         handler: function (response) {
           alert("Payment Successful");
-          // Handle success and send the payment details to your backend to verify
+          // You can send `response.razorpay_payment_id` to your backend here
         },
         prefill: {
           name: "Customer Name",
@@ -39,9 +39,23 @@ export default function PaymentComponent ({ productId }) {
 
       const rzp = new window.Razorpay(options);
       rzp.open();
-      setLoading(false);
     } catch (error) {
       console.error("Error creating Razorpay order", error);
+      alert("Payment failed. Please try again.");
+    } finally {
       setLoading(false);
     }
-  }
+  };
+
+  return (
+    <div>
+      <button
+        onClick={handlePayment}
+        disabled={loading}
+        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+      >
+        {loading ? "Processing..." : "Pay Now"}
+      </button>
+    </div>
+  );
+}

@@ -21,7 +21,7 @@ const Insta = () => {
             LivingLinks
           </p>
           <p className="text-2xl sm:text-4xl text-blue-900 font-bold text-center z-20 relative capitalize mt-[55px] dark:text-gray-300">
-          You won't miss your old home{' '}
+          You won't miss your old home
             
           </p>
         </div>
