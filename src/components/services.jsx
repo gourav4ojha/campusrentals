@@ -5,7 +5,6 @@ import officeIcon from '../assets/icons/office.png';
 import houseIcon from '../assets/icons/house.png';
 import warehouseIcon from '../assets/icons/warehouse.png';
 import parkingIcon from '../assets/icons/parking.png';
-import Link from 'next/link';
 
 const Services = () => {
   return (

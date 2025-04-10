@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-// Define the schema for the vehicle/product
 const vehicleSchema = new mongoose.Schema({
   category: {
     type: String,
@@ -43,7 +43,7 @@ const vehicleSchema = new mongoose.Schema({
   fuelType: {
     type: String,
     required: true,
-    enum: ['Petrol', 'Diesel', 'Electric', 'CNG'], // you can extend the fuel types
+    enum: ['Petrol', 'Diesel', 'Electric', 'CNG'],
     default: 'Petrol'
   },
   ownerId: {
@@ -65,6 +65,6 @@ const vehicleSchema = new mongoose.Schema({
   }
 });
 
-// Create a model from the schema
-export const Gowheels = mongoose.models.Gowheels || mongoose.model("Gowheels", vehicleSchema);
-
+// Export the model
+const Gowheels = mongoose.models.Gowheels || mongoose.model("Gowheels", vehicleSchema);
+export default Gowheels;

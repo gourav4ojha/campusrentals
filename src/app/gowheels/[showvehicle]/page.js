@@ -2,35 +2,88 @@ import Review from '@/components/review'
 import Footer from '@/components/footer'
 
 const fetchVehicleData = async (vehicleId) => {
-    try {
+ try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}gowheels/${vehicleId}`);
         if (!response.ok) {
             throw new Error(`Error fetching vehicle data: ${response.statusText}`);
         }
         const data = await response.json();
-        // console.log(data.result);
         return data.result;
     } catch (error) {
         console.error("Error in fetchVehicleData:", error.message);
         return null;
     }
 };
-
+ 
 export default async function showvehicles({ params }) {
-    const { showvehicle: vehicleId } = await params; // Destructure showvehicle from params
-    // console.log("Vehicle ID:", vehicleId);
+
+    const { showvehicle: vehicleId } = params;
 
     if (!vehicleId) {
         console.error("No vehicle ID provided");
-        return { notFound: true }; // Handle missing IDs for Next.js
+        return { notFound: true };
     }
-
+    
     const vehicle = await fetchVehicleData(vehicleId);
-
+    
     if (!vehicle) {
         console.error("Vehicle not found");
-        return { notFound: true }; // Return 404 if the vehicle doesn't exist
+        return { notFound: true };
     }
+    
+    const amount = vehicle.amount;
+    
+    const handlePayment = async () => {
+        if (!amount) {
+            console.error("Amount is not defined");
+            return;
+        }
+    
+        if (!process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID) {
+            console.error("Razorpay Key ID is missing!");
+            return;
+        }
+    
+        try {
+            const response = await fetch(`/create-order`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ amount }),
+            });
+    
+            const { data } = await response.json();
+            console.log("Order ID:", data.id);
+    
+            const options = {
+                key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+                amount: amount * 100,
+                currency: "INR",
+                name: "Campus Rentals",
+                description: "Test Transaction",
+                order_id: data.id,
+                handler: function (response) {
+                    console.log("Payment Successful:", response);
+                    alert("Payment Successful!");
+                },
+                prefill: {
+                    name: "John Doe",
+                    email: "johndoe@example.com",
+                    contact: "9999999999",
+                },
+                theme: {
+                    color: "#3399cc",
+                },
+            };
+    
+            const paymentObject = new window.Razorpay(options);
+            paymentObject.open();
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    };
+    
 
     return (
         <>
@@ -41,42 +94,7 @@ export default async function showvehicles({ params }) {
                             <div className="duration-700 ease-in-out object-cover object-center" data-carousel-item>
                                 <img src={vehicle.images[0]} alt="..." />
                             </div>
-
-
-                            </div>
-                            {/* <div className="duration-700 ease-in-out" data-carousel-item>
-                                <img src="https://cdn.houseplansservices.com/content/6ro7o081en4jeabmpsjj9dquum/w991x660.jpg?v=2" className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
-                            </div>
-
-                            <div className="duration-700 ease-in-out" data-carousel-item>
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmspIma0G5w4Uii4louGM8Qy6dv0uhcMsOQw&s" className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
-                            </div>
-
-                            <div className="duration-700 ease-in-out" data-carousel-item>
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJOw7HIPj4IxtN__-AyPnMFEXVVGBnC8hCyA&s" className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
-                            </div>
-
-                            <div className="duration-700 ease-in-out" data-carousel-item>
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmspIma0G5w4Uii4louGM8Qy6dv0uhcMsOQw&s" className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
-                            </div>
                         </div>
-
-                        <button type="button" className="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
-                            <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                                <svg className="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 1 1 5l4 4" />
-                                </svg>
-                                <span className="sr-only">Previous</span>
-                            </span>
-                        </button>
-                        <button type="button" className="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
-                            <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                                <svg className="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 9 4-4-4-4" />
-                                </svg>
-                                <span className="sr-only">Next</span>
-                            </span>
-                        </button> */}
                     </div>
                 </div>
                 <div>
@@ -108,15 +126,6 @@ export default async function showvehicles({ params }) {
                                             <span className="flex items-center space-x-1 p-2 bg-gray-200 rounded-full shadow hover:bg-gray-300 transition duration-300">
                                                 <i className="fa fa-snowflake text-blue-500"></i> <span>{vehicle.fuelType}</span>
                                             </span>
-                                            {/* <span className="flex items-center space-x-1 p-2 bg-gray-200 rounded-full shadow hover:bg-gray-300 transition duration-300">
-                                                <i className="fa fa-tv text-green-500"></i> <span>Furniture</span>
-                                            </span>
-                                            <span className="flex items-center space-x-1 p-2 bg-gray-200 rounded-full shadow hover:bg-gray-300 transition duration-300">
-                                                <i className="fa fa-wifi text-indigo-500"></i> <span>Wi-Fi</span>
-                                            </span>
-                                            <span className="flex items-center space-x-1 p-2 bg-gray-200 rounded-full shadow hover:bg-gray-300 transition duration-300">
-                                                <i className="fa fa-apple text-red-500"></i> <span>Fridge</span>
-                                            </span> */}
                                         </div>
                                     </div>
 
@@ -128,17 +137,22 @@ export default async function showvehicles({ params }) {
                                         <button className="btn text-lg font-semibold text-white bg-gradient-to-r from-blue-500 to-indigo-500 px-6 py-2 rounded-lg shadow hover:from-indigo-500 hover:to-blue-500 transition duration-300">
                                             Contact Owner
                                         </button>
-                                        <button className="btn text-lg font-semibold text-white bg-gradient-to-r from-pink-500 to-red-500 px-6 py-2 rounded-lg shadow hover:from-red-500 hover:to-pink-500 transition duration-300">
+                                        <button
+                                            className="btn text-lg font-semibold text-white bg-gradient-to-r from-pink-500 to-red-500 px-6 py-2 rounded-lg shadow hover:from-red-500 hover:to-pink-500 transition duration-300"
+                                            onClick={handlePayment}
+
+                                        >
                                             Gunrate Token
                                         </button>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <Review/>
-                <Footer/>
+                <Review />
+                <Footer />
             </div>
         </>
     )

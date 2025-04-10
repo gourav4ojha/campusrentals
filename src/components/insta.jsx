@@ -1,16 +1,16 @@
 import React from 'react';
-import Image from 'next/image';
+// import Image from 'next/image';
 
-import instaImg1 from '../assets/images/insta1.png';
-import instaImg2 from '../assets/images/insta2.png';
-import instaImg3 from '../assets/images/insta3.png';
-import instaImg4 from '../assets/images/insta4.png';
-import instaImg5 from '../assets/images/insta5.png';
-import instaImg6 from '../assets/images/insta6.png';
-import instaImg7 from '../assets/images/insta7.png';
-import instaImg8 from '../assets/images/insta8.png';
-import instaIcon from '../assets/icons/instaIcon.png';
-import Link from 'next/link';
+// import instaImg1 from '../assets/images/insta1.png';
+// import instaImg2 from '../assets/images/insta2.png';
+// import instaImg3 from '../assets/images/insta3.png';
+// import instaImg4 from '../assets/images/insta4.png';
+// import instaImg5 from '../assets/images/insta5.png';
+// import instaImg6 from '../assets/images/insta6.png';
+// import instaImg7 from '../assets/images/insta7.png';
+// import instaImg8 from '../assets/images/insta8.png';
+// import instaIcon from '../assets/icons/instaIcon.png';
+// import Link from 'next/link';
 
 const Insta = () => {
   return (

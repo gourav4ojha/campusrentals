@@ -4,7 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 import searchIcon from '../../src/assets/icons/search.png';
-import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 import Cookies from 'js-cookie'; // Import Cookies for handling token
 
 // Function to verify the token and fetch user data
@@ -149,13 +148,13 @@ const Header = () => {
         >
           <div className="py-1">
             <a
-              href="/addproperty/addproperty"
+              href="/smartadd/addproperty"
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
             >
               Add Property
             </a>
             <a
-              href="#"
+              href="/smartadd/addvehical"
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
             >
               Add vehicle

@@ -7,7 +7,7 @@ export async function GET(req, { params }) {
     await connectToDB();
 
     try {
-        const { id } = params; // Extract ID from route parameters
+        const { id } = params; 
 
         // Validate ID
         if (!mongoose.Types.ObjectId.isValid(id)) {

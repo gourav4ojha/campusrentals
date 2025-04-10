@@ -8,7 +8,7 @@ export function verifyToken(token) {
     try {
         const decoded = jwt.verify(token, JWT_SECRET);
         return { success: true, user: decoded };
-    } catch (error) {
-        return { success: false, error: "Invalid or expired token" };
+    } catch (e) {
+        return { success: false, e: "Invalid or expired token" };
     }
 }

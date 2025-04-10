@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import { Gowheels } from "@/lib/model/gowheels";
 import { NextResponse } from "next/server";
 import { connectToDB } from "@/lib/db";
