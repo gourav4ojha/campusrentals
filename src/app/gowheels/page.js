@@ -3,30 +3,25 @@ import Image from 'next/image';
 import Living from "@/assets/images/gowheels1.jpg"
 import Link from "next/link";
 
-// const getvenicals = async () => {
-//   let data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}gowheels`);
-//   data = await data.json();
-//   return data.result;
-// }
-const getvenicals = async () => {
-  const baseUrl =
-    process.env.NODE_ENV === "development"
-      ? "http://localhost:3000/api/"
-      : process.env.NEXT_PUBLIC_API_URL;
-
+const getVehicles = async () => {
   try {
-    const response = await fetch(`${baseUrl}gowheels`);
-    const data = await response.json();
-    return data.result;
-  } catch (err) {
-    console.error("Fetch failed:", err);
-    return null;
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/gowheels`);
+    
+    if (!res.ok) {
+      throw new Error(`Failed to fetch: ${res.status}`);
+    }
+    
+    const data = await res.json();
+    return data.result || []; // Return empty array if no result
+  } catch (error) {
+    console.error("Error fetching vehicles:", error);
+    return []; // Return empty array on error
   }
 };
 
 
 export default async function GoWheels() {
-  const vehicals = await getvenicals()
+  const vehicals = await getVehicles()
   return (
     <>
       <section className="flex flex-col w-full h-screen ">
@@ -51,7 +46,8 @@ export default async function GoWheels() {
       </div>
 
       <div className="mt-1 ml-5 mr-5 flex flex-wrap justify-center">
-        { vehicals.map((item) => (          
+      {vehicals.length > 0 ? (
+         vehicals.map((item) => (          
          <div className="relative flex flex-col my-6 bg-white shadow-sm border border-slate-200 mx-2 rounded-lg w-96" key={item._id}>
             <div className="relative h-56 m-2.5 overflow-hidden rounded-md">
               <img
@@ -79,7 +75,12 @@ export default async function GoWheels() {
                 Read more
               </Link>
             </div>
-        </div>))}
+        </div>))
+        ) : (
+          <div className="text-center py-8 w-full">
+            <p className="text-xl text-slate-600">No vehicles available at the moment</p>
+          </div>
+        )}
  
 
       </div>

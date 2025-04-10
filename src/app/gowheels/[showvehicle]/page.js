@@ -139,7 +139,7 @@ export default async function showvehicles({ params }) {
                                         </button>
                                         <button
                                             className="btn text-lg font-semibold text-white bg-gradient-to-r from-pink-500 to-red-500 px-6 py-2 rounded-lg shadow hover:from-red-500 hover:to-pink-500 transition duration-300"
-                                            onClick={handlePayment}
+                                            // onClick={handlePayment}
 
                                         >
                                             Gunrate Token
