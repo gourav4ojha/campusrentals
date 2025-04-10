@@ -33,56 +33,56 @@ export default async function showvehicles({ params }) {
     
     const amount = vehicle.amount;
     
-    // const handlePayment = async () => {
-    //     if (!amount) {
-    //         console.error("Amount is not defined");
-    //         return;
-    //     }
+    const handlePayment = async () => {
+        if (!amount) {
+            console.error("Amount is not defined");
+            return;
+        }
     
-    //     if (!process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID) {
-    //         console.error("Razorpay Key ID is missing!");
-    //         return;
-    //     }
+        if (!process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID) {
+            console.error("Razorpay Key ID is missing!");
+            return;
+        }
     
-    //     try {
-    //         const response = await fetch(`/create-order`, {
-    //             method: "POST",
-    //             headers: {
-    //                 "Content-Type": "application/json",
-    //             },
-    //             body: JSON.stringify({ amount }),
-    //         });
+        try {
+            const response = await fetch(`/create-order`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ amount }),
+            });
     
-    //         const { data } = await response.json();
-    //         console.log("Order ID:", data.id);
+            const { data } = await response.json();
+            console.log("Order ID:", data.id);
     
-    //         const options = {
-    //             key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-    //             amount: amount * 100,
-    //             currency: "INR",
-    //             name: "Campus Rentals",
-    //             description: "Test Transaction",
-    //             order_id: data.id,
-    //             handler: function (response) {
-    //                 console.log("Payment Successful:", response);
-    //                 alert("Payment Successful!");
-    //             },
-    //             prefill: {
-    //                 name: "John Doe",
-    //                 email: "johndoe@example.com",
-    //                 contact: "9999999999",
-    //             },
-    //             theme: {
-    //                 color: "#3399cc",
-    //             },
-    //         };
+            const options = {
+                key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+                amount: amount * 100,
+                currency: "INR",
+                name: "Campus Rentals",
+                description: "Test Transaction",
+                order_id: data.id,
+                handler: function (response) {
+                    console.log("Payment Successful:", response);
+                    alert("Payment Successful!");
+                },
+                prefill: {
+                    name: "John Doe",
+                    email: "johndoe@example.com",
+                    contact: "9999999999",
+                },
+                theme: {
+                    color: "#3399cc",
+                },
+            };
     
-    //         const paymentObject = new window.Razorpay(options);
-    //         paymentObject.open();
-    //     } catch (error) {
-    //         console.error("Error:", error);
-    //     }
-    // };
+            const paymentObject = new window.Razorpay(options);
+            paymentObject.open();
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    };
     
 
     return (
@@ -139,7 +139,7 @@ export default async function showvehicles({ params }) {
                                         </button>
                                         <button
                                             className="btn text-lg font-semibold text-white bg-gradient-to-r from-pink-500 to-red-500 px-6 py-2 rounded-lg shadow hover:from-red-500 hover:to-pink-500 transition duration-300"
-                                            // onClick={handlePayment}
+                                            onClick={handlePayment}
 
                                         >
                                             Gunrate Token
