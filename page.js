@@ -1,8 +1,8 @@
 // "use client"
 import Head from 'next/head';
-import Deals from '../components/deals';
-import Services from '../components/services';
-import Review from '../components/review';
+import Deals from './src/components/deals';
+import Services from './src/components/services';
+import Review from './src/components/review';
 
 import Footer from '@/components/footer';
 import Hero from '@/components/hero';

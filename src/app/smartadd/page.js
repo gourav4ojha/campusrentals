@@ -12,6 +12,7 @@
 //   };
 
 // const { places } = await Place.searchByText(request);
+import Place from '@/components/Place';
 
 export default async function Page() {
   const request = {
