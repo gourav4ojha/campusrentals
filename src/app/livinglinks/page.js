@@ -3,12 +3,29 @@ import Image from 'next/image';
 import Living from "@/assets/images/livinglinks1.jpg"
 import Link from "next/link";
 
+// const getpropertys = async () => {
+//   let data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}livinglinks`);
+//   data = await data.json();
+//   // console.log(data)
+//   return data.result;
+// }
 const getpropertys = async () => {
-  let data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}livinglinks`);
-  data = await data.json();
-  // console.log(data)
-  return data.result;
-}
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}livinglinks`);
+
+    if (!res.ok) {
+      const errorText = await res.text();
+      console.error('Fetch failed:', res.status, errorText);
+      return []; // or null, or fallback data
+    }
+
+    const data = await res.json();
+    return data.result || [];
+  } catch (err) {
+    console.error('Error fetching livinglinks:', err);
+    return []; // or fallback
+  }
+};
 
 
 export default async function LivingLink() {
