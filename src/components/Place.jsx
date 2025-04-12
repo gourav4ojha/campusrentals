@@ -1,6 +1,6 @@
-// components/Place.js
+// components/Place.jsx
 
-export default {
+const Place = {
   async searchByText(request) {
     const mockPlaces = [
       {
@@ -20,10 +20,11 @@ export default {
       },
     ];
 
-    const filtered = mockPlaces
-      .filter((place, index) => index < (request.maxResultCount || 10))
-      .filter((place) => request.minRating ? 4 >= request.minRating : true); // All mocked places have rating >= 4
+    // Filter the list if needed
+    const filtered = mockPlaces.slice(0, request.maxResultCount || 10);
 
     return { places: filtered };
   },
 };
+
+export default Place;
