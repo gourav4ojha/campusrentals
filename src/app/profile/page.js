@@ -26,10 +26,6 @@ export default async function profile() {
         <div className="fixed top-20 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0">
           <div className="flex flex-col items-center w-40 h-full overflow-hidden text-gray-400 bg-gray-900 rounded">
             <a className="flex items-center w-full px-3 mt-3" href="#">
-              {/* <svg className="w-8 h-8 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-              <path
-                d="M11 17a1 1 0 001.447.894l4-2A1 1 0 0017 15V9.236a1 1 0 00-1.447-.894l-4 2a1 1 0 00-.553.894V17zM15.211 6.276a1 1 0 000-1.788l-4.764-2.382a1 1 0 00-.894 0L4.789 4.488a1 1 0 000 1.788l4.764 2.382a1 1 0 00.894 0l4.764-2.382zM4.447 8.342A1 1 0 003 9.236V15a1 1 0 00.553.894l4 2A1 1 0 009 17v-5.764a1 1 0 00-.553-.894l-4-2z" />
-            </svg> */}
               <span className="ml-2 text-sm font-bold"> {user.name} </span>
             </a>
             <div className="w-full px-2">
@@ -189,7 +185,7 @@ export default async function profile() {
 
                   <div
                     className="fixed right-2 bottom-20 flex flex-col rounded-sm bg-gray-200 text-gray-500 dark:bg-gray-200/80 dark:text-gray-700 hover:text-gray-600 hover:dark:text-gray-400">
-                    <a href="https://www.linkedin.com/in/samuel-abera-6593a2209/">
+                    <a href="https://www.linkedin.com/in/gourav-ojha-198176231/">
                       <div className="p-2 hover:text-primary hover:dark:text-primary">
                         <svg className="lg:w-6 lg:h-6 xs:w-4 xs:h-4 text-blue-500" aria-hidden="true"
                           xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
@@ -202,7 +198,7 @@ export default async function profile() {
 
                       </div>
                     </a>
-                    <a href="https://twitter.com/Samuel7Abera7">
+                    <a href="https://www.linkedin.com/in/gourav-ojha-198176231/">
                       <div className="p-2 hover:text-primary hover:dark:text-primary">
                         <svg className="lg:w-6 lg:h-6 xs:w-4 xs:h-4 text-gray-900" aria-hidden="true"
                           xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
@@ -213,7 +209,7 @@ export default async function profile() {
 
                       </div>
                     </a>
-                    <a href="">
+                    <a href="https://www.linkedin.com/in/gourav-ojha-198176231/">
                       <div className="p-2 hover:text-blue-500 hover:dark:text-blue-500">
                         <svg className="lg:w-6 lg:h-6 xs:w-4 xs:h-4 text-blue-700" aria-hidden="true"
                           xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
@@ -224,7 +220,7 @@ export default async function profile() {
                         </svg>
                       </div>
                     </a>
-                    <a href="https://www.youtube.com/@silentcoder7">
+                    <a href="https://www.linkedin.com/in/gourav-ojha-198176231/">
                       <div className="p-2 hover:text-primary hover:dark:text-primary">
                         <svg className="lg:w-6 lg:h-6 xs:w-4 xs:h-4 text-red-600" aria-hidden="true"
                           xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"

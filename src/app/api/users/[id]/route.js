@@ -53,75 +53,75 @@ const upload = multer({
   };
   
   // PUT method to update user data
-  export async function PUT(req, context) {
+  // export async function PUT(req, context) {
+  //   try {
+  //     await connectToDB();
+  
+  //     const { params } = context;
+  //     const { id } = params;
+  
+  //     if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+  //       return NextResponse.json({ success: false, message: "Invalid User ID" }, { status: 400 });
+  //     }
+  
+  //     // Handle file upload using Multer
+  //     const form = new Promise((resolve, reject) => {
+  //       upload.single("profile")(req, {}, (err) => {
+  //         if (err) reject(err);
+  //         else resolve(req);
+  //       });
+  //     });
+  
+  //     const parsedRequest = await form;
+  //     const updates = JSON.parse(parsedRequest.body?.data || "{}"); // Parse JSON body
+  //     const file = parsedRequest.file;
+  
+  //     // Prepare data for update
+  //     const updateData = { ...updates };
+  //     if (file) {
+  //       updateData.profile = `/uploads/${file.filename}`;
+  //     }
+  
+  //     // Update user in database
+  //     const updatedUser = await Users.findByIdAndUpdate(
+  //       id,
+  //       { $set: updateData },
+  //       { new: true, runValidators: true }
+  //     );
+  
+  //     if (!updatedUser) {
+  //       return NextResponse.json({ success: false, message: "User not found" }, { status: 404 });
+  //     }
+  
+  //     return NextResponse.json({ success: true, result: updatedUser });
+  //   } catch (error) {
+  //     console.error("Error updating user:", error);
+  //     return NextResponse.json({ success: false, message: "Server error" }, { status: 500 });
+  //   }
+  // }
+
+
+export async function PUT(req, {params}) {
     try {
-      await connectToDB();
-  
-      const { params } = context;
-      const { id } = params;
-  
-      if (!id || !mongoose.Types.ObjectId.isValid(id)) {
-        return NextResponse.json({ success: false, message: "Invalid User ID" }, { status: 400 });
-      }
-  
-      // Handle file upload using Multer
-      const form = new Promise((resolve, reject) => {
-        upload.single("profile")(req, {}, (err) => {
-          if (err) reject(err);
-          else resolve(req);
-        });
-      });
-  
-      const parsedRequest = await form;
-      const updates = JSON.parse(parsedRequest.body?.data || "{}"); // Parse JSON body
-      const file = parsedRequest.file;
-  
-      // Prepare data for update
-      const updateData = { ...updates };
-      if (file) {
-        updateData.profile = `/uploads/${file.filename}`;
-      }
-  
-      // Update user in database
-      const updatedUser = await Users.findByIdAndUpdate(
-        id,
-        { $set: updateData },
-        { new: true, runValidators: true }
-      );
-  
-      if (!updatedUser) {
-        return NextResponse.json({ success: false, message: "User not found" }, { status: 404 });
-      }
-  
-      return NextResponse.json({ success: true, result: updatedUser });
+        await connectToDB();
+
+        const {id}=  params;  // Ensure `userid` is properly passed in the route
+        const body = await req.json();      // Parse the request body
+
+        // Find the user by ID and update their details
+        const updatedUser = await Users.findByIdAndUpdate(
+            id,
+            { $set: body },  // Update fields from the request body
+            { new: true, runValidators: true } // Return the updated document and run validations
+        );
+
+        if (!updatedUser) {
+            return NextResponse.json({ success: false, message: 'User not found' }, { status: 404 });
+        }
+
+        return NextResponse.json({ success: true, result: updatedUser });
     } catch (error) {
-      console.error("Error updating user:", error);
-      return NextResponse.json({ success: false, message: "Server error" }, { status: 500 });
+        console.error('Error updating user:', error);
+        return NextResponse.json({ success: false, message: 'Server error' }, { status: 500 });
     }
-  }
-
-
-// export async function PUT(req, {params}) {
-//     try {
-//         await connectToDB();
-
-//         const {id }=  params;  // Ensure `userid` is properly passed in the route
-//         const body = await req.json();      // Parse the request body
-
-//         // Find the user by ID and update their details
-//         const updatedUser = await Users.findByIdAndUpdate(
-//             id,
-//             { $set: body },  // Update fields from the request body
-//             { new: true, runValidators: true } // Return the updated document and run validations
-//         );
-
-//         if (!updatedUser) {
-//             return NextResponse.json({ success: false, message: 'User not found' }, { status: 404 });
-//         }
-
-//         return NextResponse.json({ success: true, result: updatedUser });
-//     } catch (error) {
-//         console.error('Error updating user:', error);
-//         return NextResponse.json({ success: false, message: 'Server error' }, { status: 500 });
-//     }
-// }
+}

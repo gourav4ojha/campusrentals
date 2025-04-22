@@ -38,46 +38,18 @@ export default async function ShowProperty({ params }) {
         <div className="m-12  pt-9" key={property._id}>
             <div>
                 <div id="controls-carousel" className="relative w-full" data-carousel="static">
-                <div className="relative overflow-hidden rounded-lg h-[500px] md:h-[650px]">
-                            <div className="duration-700 ease-in-out object-cover object-center" data-carousel-item>
-                                <img src="https://www.maramani.com/cdn/shop/products/SimpleHousePlan-ID12220-Perspective_2.jpg?v=1663745888&width=2048" className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
-                            </div>
-
-                            <div className="duration-700 ease-in-out" data-carousel-item>
-                                <img src="https://cdn.houseplansservices.com/content/6ro7o081en4jeabmpsjj9dquum/w991x660.jpg?v=2" className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
-                            </div>
-
-                            <div className="duration-700 ease-in-out" data-carousel-item>
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmspIma0G5w4Uii4louGM8Qy6dv0uhcMsOQw&s" className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
-                            </div>
-
-                            <div className="duration-700 ease-in-out" data-carousel-item>
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJOw7HIPj4IxtN__-AyPnMFEXVVGBnC8hCyA&s" className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
-                            </div>
-
-                            <div className="duration-700 ease-in-out" data-carousel-item>
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmspIma0G5w4Uii4louGM8Qy6dv0uhcMsOQw&s" className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
-                            </div>
+                    <div className="overflow-hidden rounded-lg h-[500px] md:h-[650px]">
+                        <div className="ease-in-out">
+                            <img
+                                src={property.images[0]}
+                                alt="Property"
+                                className="w-full h-full object-cover object-center"
+                            />
                         </div>
-
-                        <button type="button" className="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
-                            <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                                <svg className="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 1 1 5l4 4" />
-                                </svg>
-                                <span className="sr-only">Previous</span>
-                            </span>
-                        </button>
-                        <button type="button" className="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
-                            <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                                <svg className="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 9 4-4-4-4" />
-                                </svg>
-                                <span className="sr-only">Next</span>
-                            </span>
-                        </button>
+                    </div>
                 </div>
             </div>
+
 
             <div>
                 <div className="container my-5 py-2">
@@ -112,7 +84,7 @@ export default async function ShowProperty({ params }) {
                                             <i className="fa fa-tv text-green-500"></i> <span>{property.furniture ? 'furniture' : 'no furniture'}</span>
                                         </span>
                                         <span className="flex items-center space-x-1 p-2 bg-gray-200 rounded-full shadow hover:bg-gray-300 transition duration-300">
-                                            <i className="fa fa-wifi text-indigo-500"></i> <span>{property. wifi ? 'wifi' : 'no wifi'}</span>
+                                            <i className="fa fa-wifi text-indigo-500"></i> <span>{property.wifi ? 'wifi' : 'no wifi'}</span>
                                         </span>
                                         <span className="flex items-center space-x-1 p-2 bg-gray-200 rounded-full shadow hover:bg-gray-300 transition duration-300">
                                             <i className="fa fa-apple text-red-500"></i> <span>{property.ac ? 'AC' : 'no Ac'}</span>
@@ -137,8 +109,8 @@ export default async function ShowProperty({ params }) {
                     </div>
                 </div>
             </div>
-            <Review/>
-            <Footer/>
+            <Review />
+            <Footer />
 
         </div>
     );
